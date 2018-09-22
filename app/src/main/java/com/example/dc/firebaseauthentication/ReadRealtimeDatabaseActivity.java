@@ -30,14 +30,14 @@ public class ReadRealtimeDatabaseActivity extends AppCompatActivity {
     ArrayAdapter adapter;
     ArrayList<String> array = new ArrayList<>();
 
-private String qrLists[];
+    private String qrLists[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_realtime_database);
 
 
-listView = (ListView) findViewById(R.id.listViewRead);
+    listView = (ListView) findViewById(R.id.listViewRead);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array);
 
         listView.setAdapter(adapter);
