@@ -1,5 +1,6 @@
 package com.example.dc.firebaseauthentication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,9 @@ public class GoogleSignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_google_sign_in);
 
         mGoogleBtn = (SignInButton) findViewById(R.id.g_sign_in_button);
-
+mProgressDialog = new ProgressDialog(GoogleSignInActivity.this);
+mProgressDialog.setTitle("Signing in");
+mProgressDialog.setMessage("Signing user in");
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -74,6 +78,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signIn();
+                mProgressDialog.show();
             }
         });
 
@@ -125,6 +130,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            mProgressDialog.dismiss();
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                           //  updateUI(user);
