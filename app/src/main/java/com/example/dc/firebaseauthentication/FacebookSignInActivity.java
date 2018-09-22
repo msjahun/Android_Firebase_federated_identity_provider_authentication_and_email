@@ -1,5 +1,6 @@
 package com.example.dc.firebaseauthentication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class FacebookSignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 // ...
-
+private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,11 @@ public class FacebookSignInActivity extends AppCompatActivity {
 
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
+        mProgressDialog = new ProgressDialog(FacebookSignInActivity.this);
+        mProgressDialog.setTitle("Signing in");
+        mProgressDialog.setMessage("Signing user in");
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -57,7 +63,9 @@ public class FacebookSignInActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                mProgressDialog.show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                mProgressDialog.dismiss();
             }
 
             @Override
