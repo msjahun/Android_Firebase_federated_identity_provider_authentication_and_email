@@ -10,8 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.crashlytics.android.Crashlytics;
+import com.example.dc.firebaseauthentication.BuildConfig;
+import com.crashlytics.android.Crashlytics;
 
-    public class DebugActivity extends AppCompatActivity {
+import io.fabric.sdk.android.Fabric;
+
+
+public class DebugActivity extends AppCompatActivity {
         ListView listViewDebug;
         ArrayAdapter adapter;
         //////////////////////
@@ -24,7 +30,9 @@ import android.widget.ListView;
                 "Sign in Activity",
                 "Register Activity",
                 "Google sign in",
-                "Facebook sign in"
+                "Facebook sign in",
+                "Saving to realtime database",
+                "Read Real time database"
 
 
         };
@@ -34,6 +42,8 @@ import android.widget.ListView;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_debug);
+
+
 
             listViewDebug = (ListView) findViewById(R.id.listViewDebug);
 
@@ -62,6 +72,10 @@ import android.widget.ListView;
                             startActivity(new Intent(DebugActivity.this,GoogleSignInActivity.class));break;
                             case 4:
                             startActivity(new Intent(DebugActivity.this,FacebookSignInActivity.class));break;
+                            case 5:
+                            startActivity(new Intent(DebugActivity.this,SaveRealTimeDataActivity.class));break;
+                            case 6:
+                            startActivity(new Intent(DebugActivity.this,ReadRealtimeDatabaseActivity.class));break;
 
 
                     }
